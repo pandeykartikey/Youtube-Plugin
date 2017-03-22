@@ -23,8 +23,5 @@
  "permissions": [
    "tabs",
    "<all_urls>"
- ],
-  "background": {
-    "scripts": ["jquery-3.1.1.min.js","background.js"]
-  }
+ ]
 }

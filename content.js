@@ -2,10 +2,18 @@
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.method == "getSelection")
   {
-    var len=$("[href^='/watch']").length;
+    var a = document.getElementsByTagName("a");
     var i = 0;
+    var len =0;
+    var re = new RegExp("^['/watch']");
+    for ( i=0 ; i<a.length;i++){
+      if(re.test(a[i])){
+        len+=1;
+      }
+    }
     var j = 0;
     var links=[];
+    i=0;
     while(i<10 && i<len){
       var title = $("[href^='/watch']").eq(j).attr("title");
       if(title){
@@ -20,6 +28,5 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     }
     console.log(links);
     sendResponse({data: links});
-  } else
-    sendResponse({}); // snub them.
+  }
 });
