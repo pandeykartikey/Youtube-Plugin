@@ -61,10 +61,12 @@ function loadDoc(){
         a.innerHTML = links[i];
         //a.setAttribute("href","https://www.youtube.com" + links[i+1]);
         //addEventListener('click', loadDoc)
-        a.addEventListener('click',function(){
+        /*a.addEventListener('click',function(){
                              var newVar = links[i+1];
                              reload(newVar);
-                         });
+                         });*/
+        a.addEventListener('click',reload);
+        a.youtube_link=links[i+1];
         $('#text').append(a);
         }
       var hrefs = document.getElementsByTagName("a");
@@ -106,7 +108,9 @@ function loadDoc(){
   });
 }*/
 
-function reload(new_url){
+function reload(evt){
+  //new_url="https://www.youtube.com"+new_url;
+  new_url=evt.target.youtube_link;
   new_url="https://www.youtube.com"+new_url;
   console.log(new_url);
   chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
