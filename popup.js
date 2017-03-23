@@ -1,17 +1,4 @@
 console.log("here");
-/* $(function(){
-    //addLinks();
-    chrome.tabs.getSelected(null, function(tab) {
-    console.log(tab.url +" "+ tab.id);
-    a = tab.url;
-    var re = new RegExp("^['https://www.youtube.com']");
-    if(a.indexOf("https://www.youtube.com")==0){
-      console.log("here");
-      localStorage.link= a;
-      localStorage.id=tab.id;
-    }
-});
-});*/
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse){
       chrome.tabs.getSelected(null, function(tab) {
@@ -23,26 +10,9 @@ chrome.runtime.onMessage.addListener(
       localStorage.link= a;
       localStorage.id=tab.id;
     }})});
-/*chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.method == "getURL"){
-    chrome.tabs.getSelected(null, function(tab) {
-    console.log(tab.url +" "+ tab.id);
-    a = tab.url;
-    var re = new RegExp("^['https://www.youtube.com']");
-    if(a.indexOf("https://www.youtube.com")==0){
-      console.log("here");
-      localStorage.link= a;
-      localStorage.id=tab.id;
-    }
-});
 
-  }
-}
-);*/
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("here");
-    var link = document.getElementById('link');
-    document.getElementById('link').addEventListener('click', loadDoc);
+  loadDoc();
   });
 
 function loadDoc(){
@@ -85,12 +55,6 @@ function loadDoc(){
       for(i=0;i<links.length;i+=2){
         a = document.createElement('p');
         a.innerHTML = links[i];
-        //a.setAttribute("href","https://www.youtube.com" + links[i+1]);
-        //addEventListener('click', loadDoc)
-        /*a.addEventListener('click',function(){
-                             var newVar = links[i+1];
-                             reload(newVar);
-                         });*/
         a.addEventListener('click',reload);
         a.youtube_link=links[i+1];
         $('#text').append(a);
@@ -111,40 +75,15 @@ function loadDoc(){
   xhttp.open("GET",youtube_url, true);
   xhttp.send();
 }
-/*function addLinks() {
-  chrome.tabs.query({active:true, windowId: chrome.windows.WINDOW_ID_CURRENT},
-  function(tab) {
-    //console.log("here"); response.data
-    chrome.tabs.sendMessage(tab[0].id, {method: "getSelection"},
-    function(response){
-      var link = response.data;
-      var a;
-      for(i=0;i<link.length;i+=2){
-        a = document.createElement('a');
-        a.innerHTML = link[i];
-        a.setAttribute("href","https://www.youtube.com" + link[i+1]);
-        $('#text').append(a);
-      }
-      var hrefs = document.getElementsByTagName("a");
-      console.log(hrefs.length);
-      for (i=0; i<hrefs.length; ++i) {
-        hrefs[i].addEventListener('click', openLink);
-      }
-    });
-  });
-}*/
 
 function reload(evt){
-  //new_url="https://www.youtube.com"+new_url;
   evt.preventDefault();
   new_url=evt.target.youtube_link;
   new_url="https://www.youtube.com"+new_url;
   console.log(new_url);
   id=parseInt(localStorage.id);
-  //chrome.tabs.query({active: true}, function (tab) {
   localStorage.link=new_url;
-      chrome.tabs.update( id , {"url":new_url});
-//});
+  chrome.tabs.update( id , {"url":new_url});
   return;
 }
 function openLink() {

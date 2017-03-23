@@ -8,13 +8,6 @@ p {
   color: #265C83;
   font-weight: bold;
 }
-
-a:link,
-/*a:visited { color: #265C83; }*/
 p:hover   { color: #7FDBFF; }
-/*a:active  {*/
-  /*transition: color .3s;*/
-  /*color: #007BE6;*/
-/*}*/
 
 .link { text-decoration: none; }
