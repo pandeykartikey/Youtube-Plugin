@@ -57,7 +57,7 @@ function loadDoc(){
       console.log("here");
       var a;
       for(i=0;i<links.length;i+=2){
-        a = document.createElement('a');
+        a = document.createElement('p');
         a.innerHTML = links[i];
         //a.setAttribute("href","https://www.youtube.com" + links[i+1]);
         //addEventListener('click', loadDoc)
@@ -110,12 +110,15 @@ function loadDoc(){
 
 function reload(evt){
   //new_url="https://www.youtube.com"+new_url;
+  evt.preventDefault();
   new_url=evt.target.youtube_link;
   new_url="https://www.youtube.com"+new_url;
   console.log(new_url);
-  chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
-      chrome.tabs.update(parseInt(localStorage.id), {url:new_url});
-});
+  id=parseInt(localStorage.id);
+  //chrome.tabs.query({active: true}, function (tab) {
+      chrome.tabs.update( id , {"url":new_url});
+//});
+  return;
 }
 function openLink() {
     var href = this.href;
