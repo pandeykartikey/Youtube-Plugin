@@ -1,5 +1,5 @@
 console.log("here");
-$(function(){
+/* $(function(){
     //addLinks();
     chrome.tabs.getSelected(null, function(tab) {
     console.log(tab.url +" "+ tab.id);
@@ -11,8 +11,34 @@ $(function(){
       localStorage.id=tab.id;
     }
 });
+});*/
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse){
+      chrome.tabs.getSelected(null, function(tab) {
+    console.log(tab.url +" "+ tab.id);
+    a = tab.url;
+    var re = new RegExp("^['https://www.youtube.com']");
+    if(a.indexOf("https://www.youtube.com")==0){
+      console.log("here");
+      localStorage.link= a;
+      localStorage.id=tab.id;
+    }})});
+/*chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.method == "getURL"){
+    chrome.tabs.getSelected(null, function(tab) {
+    console.log(tab.url +" "+ tab.id);
+    a = tab.url;
+    var re = new RegExp("^['https://www.youtube.com']");
+    if(a.indexOf("https://www.youtube.com")==0){
+      console.log("here");
+      localStorage.link= a;
+      localStorage.id=tab.id;
+    }
 });
 
+  }
+}
+);*/
 document.addEventListener('DOMContentLoaded', function() {
     console.log("here");
     var link = document.getElementById('link');
@@ -116,6 +142,7 @@ function reload(evt){
   console.log(new_url);
   id=parseInt(localStorage.id);
   //chrome.tabs.query({active: true}, function (tab) {
+  localStorage.link=new_url;
       chrome.tabs.update( id , {"url":new_url});
 //});
   return;

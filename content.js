@@ -1,4 +1,24 @@
-
+/*$(function(){
+    //addLinks();
+    chrome.tabs.getSelected(null, function(tab) {
+    console.log(tab.url +" "+ tab.id);
+    a = tab.url;
+    var re = new RegExp("^['https://www.youtube.com']");
+    if(a.indexOf("https://www.youtube.com")==0){
+      console.log("here");
+      localStorage.link= a;
+      localStorage.id=tab.id;
+    }
+});
+});
+*/
+/*chrome.tabs.query({active:true, windowId: chrome.windows.WINDOW_ID_CURRENT},
+  function(tab) {
+chrome.tabs.sendMessage(tab[0].id, {method: "getURL"});});*/
+chrome.runtime.sendMessage({
+  from:    'content',
+  subject: 'getURL'
+});
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.method == "getSelection")
   {
