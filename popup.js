@@ -1,7 +1,11 @@
 console.log("here");
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse){
-      chrome.tabs.getSelected(null, function(tab) {
+  function(request, sender, sendResponse){
+    onLoad();
+  });
+onLoad();
+function onLoad(){
+  chrome.tabs.getSelected(null, function(tab) {
     console.log(tab.url +" "+ tab.id);
     a = tab.url;
     var re = new RegExp("^['https://www.youtube.com']");
@@ -10,7 +14,10 @@ chrome.runtime.onMessage.addListener(
       localStorage.link= a;
       localStorage.id=tab.id;
       loadDoc();
-    }})});
+    }
+  }
+  );
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   loadDoc();
