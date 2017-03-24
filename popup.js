@@ -97,8 +97,9 @@ function reload(evt){
   chrome.tabs.update( id , {"url":new_url},function(tab){
     console.log(tab);
     if(tab == undefined){
-      chrome.tabs.create({'url':new_url,active:true}, function(tab){
+      chrome.tabs.create({'url':new_url,active:false}, function(tab){
         localStorage.id=tab.id;
+        chrome.tabs.update(parseInt(localStorage.id),{active:true});
       });
     }
   });
