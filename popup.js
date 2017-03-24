@@ -9,6 +9,7 @@ chrome.runtime.onMessage.addListener(
       console.log("here");
       localStorage.link= a;
       localStorage.id=tab.id;
+      loadDoc();
     }})});
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadDoc(){
   var xhttp = new XMLHttpRequest();
   console.log("here");
+  $("#text").html("");
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementsByTagName("div").innerHTML =this.responseText;
@@ -53,16 +55,17 @@ function loadDoc(){
       console.log("here");
       var a;
       for(i=0;i<links.length;i+=2){
-        a = document.createElement('p');
-        a.innerHTML = links[i];
-        a.addEventListener('click',reload);
+        a = document.createElement('div');
+        img = document.createElement('img');
+        img.setAttribute('src','https://i.ytimg.com/vi/'+links[i+1].substring(9,20)+'/hqdefault.jpg?custom=true&w=168&h=94&stc=true&jpg444=true&jpgq=90&sp=67&sigh=EYsEqqKBqs3v7HCe7bhrXXWBRuc');
+        a.append(img);
+        p =document.createElement('p');
+        p.innerHTML = links[i];
+        a.append(p);
         a.youtube_link=links[i+1];
+        a.addEventListener('click',reload);
         $('#text').append(a);
-        }
-      var hrefs = document.getElementsByTagName("a");
-      console.log(hrefs.length);
-      for (i=0; i<hrefs.length; ++i) {
-        hrefs[i].addEventListener('click', openLink);
+        $('#text').append('<hr/>');
         }
       }
     }
@@ -72,24 +75,18 @@ function loadDoc(){
   else{
     youtube_url="https://www.youtube.com";
     }
+  console.log(youtube_url);
   xhttp.open("GET",youtube_url, true);
   xhttp.send();
 }
 
 function reload(evt){
   evt.preventDefault();
-  new_url=evt.target.youtube_link;
+  new_url=evt.currentTarget.youtube_link;
   new_url="https://www.youtube.com"+new_url;
   console.log(new_url);
   id=parseInt(localStorage.id);
   localStorage.link=new_url;
   chrome.tabs.update( id , {"url":new_url});
-  return;
-}
-function openLink() {
-    var href = this.href;
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        var tab = tabs[0];
-        chrome.tabs.update(tab.id, {url: href});
-    });
+  loadDoc();
 }

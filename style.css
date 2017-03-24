@@ -3,11 +3,24 @@ body{
   line-height: 200%;
 }
 p {
-  display:block;
   transition: color .4s;
   color: #265C83;
   font-weight: bold;
+  margin-top: 0px;
 }
 p:hover   { color: #7FDBFF; }
 
 .link { text-decoration: none; }
+img{
+  float: left;
+  margin: 0 8px 0 0;
+  width:84px;
+  height:47px;
+}
+div{
+  height:50px;
+  overflow: hidden;
+}
+#text{
+  overflow: visible;
+}
