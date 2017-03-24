@@ -94,6 +94,13 @@ function reload(evt){
   console.log(new_url);
   id=parseInt(localStorage.id);
   localStorage.link=new_url;
-  chrome.tabs.update( id , {"url":new_url});
+  chrome.tabs.update( id , {"url":new_url},function(tab){
+    console.log(tab);
+    if(tab == undefined){
+      chrome.tabs.create({'url':new_url,active:true}, function(tab){
+        localStorage.id=tab.id;
+      });
+    }
+  });
   loadDoc();
 }
