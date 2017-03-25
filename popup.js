@@ -12,6 +12,7 @@ function onLoad(){
     if(a.indexOf("https://www.youtube.com")==0){
       console.log("here");
       localStorage.link= a;
+      localStorage.link_temp=a;
       localStorage.id=tab.id;
       loadDoc();
     }
@@ -85,6 +86,7 @@ function loadDoc(){
   console.log(youtube_url);
   xhttp.open("GET",youtube_url, true);
   xhttp.send();
+  localStorage.link=localStorage.link_temp;
 }
 
 function reload(evt){
@@ -94,6 +96,7 @@ function reload(evt){
   console.log(new_url);
   id=parseInt(localStorage.id);
   localStorage.link=new_url;
+  localStorage.link_temp=new_url;
   chrome.tabs.update( id , {"url":new_url},function(tab){
     console.log(tab);
     if(tab == undefined){
@@ -105,3 +108,11 @@ function reload(evt){
   });
   loadDoc();
 }
+$('#search-bar').submit(function(evt) {
+  evt.preventDefault();
+  localStorage.link_temp=localStorage.link;
+  localStorage.link="https://www.youtube.com/results?search_query="+$('#search').val();
+  console.log(localStorage.link);
+  $('#search').val('');
+  loadDoc();
+});
