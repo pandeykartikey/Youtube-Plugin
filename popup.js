@@ -77,9 +77,14 @@ function loadDoc(){
         }
       }
     }
+    if(localStorage.link!=undefined){
   if(localStorage.link.indexOf("https://www.youtube.com")==0){
     youtube_url=localStorage.link;
     }
+  else{
+    youtube_url="https://www.youtube.com";
+    }
+  }
   else{
     youtube_url="https://www.youtube.com";
     }
@@ -94,6 +99,15 @@ function reload(evt){
   new_url=evt.currentTarget.youtube_link;
   new_url="https://www.youtube.com"+new_url;
   console.log(new_url);
+  if(localStorage.id==undefined){
+    localStorage.link=new_url;
+    localStorage.link_temp=new_url;
+    chrome.tabs.create({'url':new_url,active:false}, function(tab){
+        localStorage.id=tab.id;
+        chrome.tabs.update(parseInt(localStorage.id),{active:true});
+      });
+  }
+  else{
   id=parseInt(localStorage.id);
   localStorage.link=new_url;
   localStorage.link_temp=new_url;
@@ -105,7 +119,7 @@ function reload(evt){
         chrome.tabs.update(parseInt(localStorage.id),{active:true});
       });
     }
-  });
+  });}
   loadDoc();
 }
 $('#search-bar').submit(function(evt) {
