@@ -7,10 +7,11 @@
 
 ---
 # Setting  Up the Extension
-  1. Clone the git repository to your local machine __git clone https://github.com/kartik-25/Youtube-Plugin.git__
-  2. Go to Chrome Settings and then extensions or type chrome://extensions/ on the search bar.
-  3. Click on the Load Unpacked Extension button
-  4. Navigate to the directory where you cloned the repository and open it.
- 
+  1. Clone the git repository to your local machine __git clone https://github.com/kartik-25/Youtube-Plugin.git__ Or __Download the repository__
+  2. Make Sure Developer mode is turned on.
+  3. Go to Chrome Settings and then extensions or type chrome://extensions/ on the search bar.
+  4. Click on the Load Unpacked Extension button
+  5. Navigate to the directory where you cloned the repository and open it.
+
 ---
 ## __Plugin is ready !! Click on it and Play your youtube songs. Enjoy :D__
