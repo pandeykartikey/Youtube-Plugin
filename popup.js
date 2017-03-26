@@ -1,4 +1,3 @@
-console.log("here");
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse){
     onLoad();
@@ -6,11 +5,9 @@ chrome.runtime.onMessage.addListener(
 onLoad();
 function onLoad(){
   chrome.tabs.getSelected(null, function(tab) {
-    console.log(tab.url +" "+ tab.id);
     a = tab.url;
     var re = new RegExp("^['https://www.youtube.com']");
     if(a.indexOf("https://www.youtube.com")==0){
-      console.log("here");
       localStorage.link= a;
       localStorage.link_temp=a;
       localStorage.id=tab.id;
@@ -26,18 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadDoc(){
   var xhttp = new XMLHttpRequest();
-  console.log("here");
   $("#text").html("");
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementsByTagName("div").innerHTML =this.responseText;
       var el = document.createElement( 'html' );
       el.innerHTML =this.responseText;
-      console.log(el.getElementsByTagName("a"));
       var a = el.getElementsByTagName("a");
       var i = 0;
       var len =0;
-      console.log(a.length);
       var re = new RegExp("^['/watch']");
       for ( i=0 ; i<a.length;i++){
         if(re.test(a[i])){
@@ -50,17 +44,13 @@ function loadDoc(){
       while(i<10 && i<len){
         var title = el.querySelectorAll('[href^="/watch"]')[j].getAttribute('title');
         if(title){
-          console.log(title);
           links.push(title);
           var url = el.querySelectorAll('[href^="/watch"]')[j].getAttribute('href');
-          console.log(url);
           links.push(url);
           i=i+1;
           }
         j=j+1;
         }
-      console.log(links);
-      console.log("here");
       var a;
       for(i=0;i<links.length;i+=2){
         a = document.createElement('div');
@@ -88,7 +78,6 @@ function loadDoc(){
   else{
     youtube_url="https://www.youtube.com";
     }
-  console.log(youtube_url);
   xhttp.open("GET",youtube_url, true);
   xhttp.send();
   localStorage.link=localStorage.link_temp;
@@ -98,7 +87,6 @@ function reload(evt){
   evt.preventDefault();
   new_url=evt.currentTarget.youtube_link;
   new_url="https://www.youtube.com"+new_url;
-  console.log(new_url);
   if(localStorage.id==undefined){
     localStorage.link=new_url;
     localStorage.link_temp=new_url;
@@ -112,7 +100,6 @@ function reload(evt){
   localStorage.link=new_url;
   localStorage.link_temp=new_url;
   chrome.tabs.update( id , {"url":new_url},function(tab){
-    console.log(tab);
     if(tab == undefined){
       chrome.tabs.create({'url':new_url,active:false}, function(tab){
         localStorage.id=tab.id;
@@ -126,7 +113,6 @@ $('#search-bar').submit(function(evt) {
   evt.preventDefault();
   localStorage.link_temp=localStorage.link;
   localStorage.link="https://www.youtube.com/results?search_query="+$('#search').val();
-  console.log(localStorage.link);
   $('#search').val('');
   loadDoc();
 });
