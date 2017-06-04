@@ -55,6 +55,14 @@ input[type=text] {
 #spacer{
   height: 90px;
 }
+#controls{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  height: 20px;
+  font-size: 14px;
+  margin-right: 20px;
+}
 #prev img{
   transform: scaleX(-1);
 }
