@@ -2,22 +2,22 @@ body{
   width:300px;
   line-height: 200%;
 }
-p {
+#text p {
   transition: color .4s;
   color: #265C83;
   font-weight: bold;
   margin-top: 0px;
 }
-p:hover   { color: #7FDBFF; }
+#text p:hover   { color: #7FDBFF; }
 
 .link { text-decoration: none; }
-img{
+#text img{
   float: left;
   margin: 0 8px 0 0;
   width:84px;
   height:47px;
 }
-div{
+#text div{
   height:50px;
   overflow: hidden;
 }
@@ -52,15 +52,26 @@ input[type=text] {
   border-radius: 10px;
   background-color: #ddd;
 }
+#spacer{
+  height: 90px;
+}
+#prev img{
+  transform: scaleX(-1);
+}
 #player-background{
   background: #fff;
   position:fixed;
   top: 0px;
   width:100%;
-  height: 60px;
+  height: 90px;
 }
 #player{
   position:fixed;
   width: 100%;
   z-index:10;
 }
+#player img{
+  width:20px;
+  height:20px; 
+  z-index:10;
+} 

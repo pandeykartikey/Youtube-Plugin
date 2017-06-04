@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadDoc(){
   var xhttp = new XMLHttpRequest();
   $("#text").html("");
+  $("#prev").youtube_link=localStorage.prev_link;
+  $("#prev").bind('click',reload);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementsByTagName("div").innerHTML =this.responseText;
       var el = document.createElement( 'html' );
       el.innerHTML =this.responseText;
       var a = el.getElementsByTagName("a");
@@ -86,6 +87,7 @@ function loadDoc(){
 function reload(evt){
   evt.preventDefault();
   new_url=evt.currentTarget.youtube_link;
+  localStorage.prev_link = localStorage.link;
   new_url="https://www.youtube.com"+new_url;
   if(localStorage.id==undefined){
     localStorage.link=new_url;
