@@ -1,5 +1,5 @@
 chrome.runtime.sendMessage({
-  from:    'content',
-  subject: 'getURL'
+  from:    "content",
+  subject: "getURL"
 });
 
